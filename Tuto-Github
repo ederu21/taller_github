@@ -1,0 +1,74 @@
+Setear variables:
+	git config --global user.name "ederu21"
+	git config --global user.email "eder.gonzalez.r@gmail.com"
+
+Cambiarse a carpeta de proyectos:
+	cd web
+
+Crear directorio de trabajo:
+	mkdir taller_github
+
+Cambiarse a directorio:	
+	cd taller_github
+
+Inicializar proyecto git:
+	git init
+
+Crear archivo README
+	touch README
+
+Revisar status
+	git status
+
+Agregar archivo 
+	git add README2
+
+Hacer commit
+	git commit -m "First Commit"
+
+Conectar al origen
+	git remote add origin https://github.com/ederu21/taller_github.git
+
+	git remote add origin git@github.com:ederu21/taller_github.git
+
+Realizar Push al proyecto
+	git push -u origin master
+
+Para crear llave publica
+	ssh-keygen
+
+Para modificar un archivo
+	git commit -a -m "Readme Modificado"
+
+Para enviar archivo al repositorio
+	git push origin master
+
+Push para pasar a GitHub y commit para hacer cambios en el equipo
+
+Para bajar datos del repositorio
+	git pull origin master
+
+Para los errores de obtencion
+	git pull --rebase
+
+Antes de subir un archivo hay que agregarlo
+	git add -A
+	git commit -a -m "mensaje"
+	git pull origin master
+	git push origin master
+
+Para clonar agregar las claves ssh
+moverse a la carpeta donde se aloja el proyecto y clonar el repositorio con
+	git clone git@github.com:ederu21/taller_github.git
+
+Modificar archivo, guardar y revisar git status
+
+Cambiarse al directorio del proyecto clonado
+
+Hacer un commit -a -m "Mensaje"
+
+hacer un git pull origin master
+
+hacer un git push origin master
+
+
