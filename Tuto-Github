@@ -71,4 +71,6 @@ hacer un git pull origin master
 
 hacer un git push origin master
 
+Para los Issues
+	commit -a -m "#1 Fixed"
 
