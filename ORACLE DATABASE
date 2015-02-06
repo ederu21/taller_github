@@ -1,0 +1,123 @@
+exec dbms_xdb.sethttpport(9090);
+select dbms_xdb.gethttpport() from dual;
+C:\oraclexe\app\oracle\product\***version***\server\Database_homepage
+
+10.207.214.162
+sqlplus username/password@database
+
+CREATE TABLE DEPARTAMENTO
+   (  DEPT CHAR(4) not null Primary key, 
+  DEDIF CHAR(2) not null, 
+  DDESPACHO integer not null, 
+  DCHFNO CHAR(3)
+   );
+
+INSERT INTO departamento values ('THEO','HU',200,'10');
+INSERT INTO departamento values ('CIS','SC',300,'80');
+INSERT INTO departamento values ('D.G.','SC',100,'');
+INSERT INTO departamento values ('PHIL','HU',200,'60');
+
+Create TABLE curso(
+Cno char(3) not null PRIMARY KEY,
+Cnombre char(22) not null,
+Cdescp char(25) not null,
+Cred integer not null,
+Ctarifa number not null,
+Cdept char(4) not null REFERENCES departamento(Dept));
+
+Insert INTO curso values('C11','INTROD A LAS CC.','PARA NOVATOS',3,100,'CIS');
+Insert INTO curso values('C22','ESTRUCT. DE DATOS','MUY UTIL',3,50,'CIS');
+Insert INTO curso values('C33','MATEMATICAS DISCRETAS','ABSOLUTAMENTE NECESARIO',3,0,'CIS');
+Insert INTO curso values('C44','CIRCUITOS DIGITALES','AH HA!',3,0,'CIS');
+Insert INTO curso values('C55','ARQUITECT. COMPUTADOR','MAQ. VON NEUMANN',3,100,'CIS');
+Insert INTO curso values('C66','BASES DE DATOS RELAC.','IMPRESCINDIBLE',3,500,'CIS');
+Insert INTO curso values('P11','EMPIRISMO','VERLO PARA CREERLO',3,100,'PHIL');
+Insert INTO curso values('P22','RACIONALISMO','PARA USARLOS CIS',3,50,'PHIL');
+Insert INTO curso values('P33','EXISTENCIALISMO','PARA USARLOS CIS',3,200,'PHIL');
+Insert INTO curso values('P44','SOLIPSISMO','PARA MI MISMO',6,0,'PHIL');
+Insert INTO curso values('T11','ESCOLASTICISMO','PARA BEATOS',3,150,'THEO');
+Insert INTO curso values('T22','FUNDAMENTALISMO','PARA DESCUIDADOS',3,90,'THEO');
+Insert INTO curso values('T33','HEDONISMO','PARA SANOS',3,0,'THEO');
+Insert INTO curso values('T44','COMUNISMO','PARA AVAROS',6,200,'THEO');
+
+CREATE TABLE CLAUSTRO(Fno char(3) not null Primary key,
+Fnombre char(15) not null,
+Fdomi char(20) not null,
+Ffcanti date not null,
+Fnumdept integer,
+Fsueldo number not null,
+Fdept char(4) not null REFERENCES departamento (DEPT));
+
+insert into claustro values('06','KATHY PEPE','CALLE LA PIEDRA,7','15-01-1979',2,35000,'PHIL');
+insert into claustro values('10','JESSIE MARTIN','Dr. DEL ESTE, 4','01-09-1979',2,45000,'THEO');
+insert into claustro values('85','AL HARTLEY','CALLE DE LA PLATA','05-09-1979',2,35000,'CIS');
+insert into claustro values('08','JOSE COHN','AP. CORREOS 1138','09-07-1979',0,45000,'CIS');
+insert into claustro values('60','JULIA MARTIN','Dr. DEL ESTE 4','01-09-1969',1,45000,'PHIL');
+insert into claustro values('65','LISA BOBAK','CAMINO RISA, 77','06-09-1981',0,36000,'THEO');
+insert into claustro values('80','BARB HILAVATY','CALLE DEL SUR, 489','16-01-1982',3,35000,'CIS');
+
+CREATE TABLE CLASE(Cno char(3) not null References curso(cno),
+Sec char(2) not null,
+Cinstrfno char(2) not null,
+Cdia char(2) not null,
+Chora char(14) not null,
+Cedif char(2) not null,
+Cdespacho integer not null,
+CONSTRAINT clase_Cno_Sec Primary key (Cno,Sec));
+
+insert into clase VALUES ('C11','01','08','LU','08:00-09:00 AM','SC',305);
+insert into clase VALUES ('C11','02','08','MA','08:00-09:00 AM','SC',306);
+insert into clase VALUES ('C33','01','80','MI','09:00-10:00 AM','SC',305);
+insert into clase VALUES ('C55','01','85','JU','11:00-12:00 AM','HU',306);
+insert into clase VALUES ('P11','01','06','JU','09:00-10:00 AM','HU',102);
+insert into clase VALUES ('P33','01','06','VI','11:00-12:00 AM','HU',201);
+insert into clase VALUES ('T11','01','10','LU','10:00-11:00 AM','HU',101);
+insert into clase VALUES ('T11','02','65','LU','10:00-11:00 AM','HU',102);
+insert into clase VALUES ('T33','01','65','MI','11:00-12:00 AM','HU',101);
+
+CREATE TABLE ESTUDIANTE(Sno char(3) not null primary key,
+Snombre char(30) not null,
+Sdomi char(15) not null,
+Stlfno char(12) not null,
+Sfnacim char(6) not null,
+Siq integer not null,
+Sadvfno char(3) not null,
+Sesp char(4) not null References departamento (DEPT));
+
+insert into estudiante values('325','CURLEY DUBAY','CONNECTICUT','204-124-4567','780517',122,'10','THEO');
+insert into estudiante values('150','LARRY DUBAY','CONNECTICUT','204-124-4567','780517',121,'80','CIS');
+insert into estudiante values('100','MOE DUBAY','CONNECTICUT','204-124-4567','780517',120,'10','THEO');
+insert into estudiante values('800','ROCKY BALBOA','PENSYLVANIA','112-112-1122','461004',99,'60','PHIL');
+
+CREATE TABLE MATRICULA(Cno char(3) not null,
+Sec char(2) not null,
+Sno char(3) not null REFERENCES estudiante(Sno),
+Fecha_mat date not null,
+Hora_mat char(10) not null,
+CONSTRAINT matricula_Cno_Sec_Sno Primary key(Cno, Sec, Sno)
+);
+
+insert into matricula values('C11','01','325','04-01-1987','09.41.30');
+insert into matricula values('C11','01','800','15-12-1987','11.49.00');
+insert into matricula values('C11','02','100','17-12-1987','09.32.00');
+insert into matricula values('C11','02','150','17-12-1987','09.32.30');
+insert into matricula values('P33','01','100','24-12-1987','11.30.00');
+insert into matricula values('P33','01','800','24-12-1987','11.23.00');
+insert into matricula values('T11','01','100','24-12-1987','11.21.00');
+insert into matricula values('T11','01','150','15-12-1987','11.35.30');
+insert into matricula values('T11','01','800','15-12-1987','14.00.00');
+
+CREATE TABLE PERSONAL (Enombre char(15) not null primary key,
+Cargo char(10) not null,
+Esueldo integer not null,
+Dept char(4));
+
+insert into personal values('LUCAS','EVANG1',53,'THEO');
+insert into personal values('MARCOS','EVANG2',52,'THEO');
+insert into personal values('MATEO','EVANG3',51,'THEO');
+insert into personal values('DICK NIX','LADRON',25001,'PHIL');
+insert into personal values('HANK KISS','BUFON',25000,'PHIL');
+insert into personal values('JUAN','EVANG4',54,'THEO');
+insert into personal values('EUCLIDES','AYTE. LAB',1000,'MATH');
+insert into personal values('ARQUIMEDES','AYTE. LAB',200,'ENG');
+insert into personal values('DAVINCI','AYTE. LAB',500,' ');
