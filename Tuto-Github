@@ -37,6 +37,8 @@ Realizar Push al proyecto
 Para crear llave publica
 	ssh-keygen
 
+Copiar de: id_rsa.pub en carpeta .ssh del usuario y dar de alta en repositorio github
+
 Para modificar un archivo
 	git commit -a -m "Readme Modificado"
 
