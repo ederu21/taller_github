@@ -121,3 +121,23 @@ insert into personal values('JUAN','EVANG4',54,'THEO');
 insert into personal values('EUCLIDES','AYTE. LAB',1000,'MATH');
 insert into personal values('ARQUIMEDES','AYTE. LAB',200,'ENG');
 insert into personal values('DAVINCI','AYTE. LAB',500,' ');
+
+/*TPersona CRUD-HIBERNATE*/
+CREATE SEQUENCE IncrIdPersona
+  MINVALUE 1
+  INCREMENT BY 1 
+  START WITH 1
+  nomaxvalue
+;
+ 
+Create Trigger TriggerIdPersona
+  before insert on EDERU21.TPersona
+  for each row
+  begin
+    Select EDERU21.IncrIdPersona.nextval into:new.ID from dual;
+  end;
+  
+INSERT INTO TPersona (DNI,NOMBRE,APELLIDOPATERNO,APELLIDOMATERNO,FECHANACIMIENTO)
+  VALUES   ('ABC','EDER','GONZALEZ','GONZALEZ',TO_DATE('1983-08-26', 'YYYY-MM-DD'));
+  
+Select IncrIdPersona.CURRVAL from DUAL;
