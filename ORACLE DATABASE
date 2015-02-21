@@ -123,6 +123,18 @@ insert into personal values('ARQUIMEDES','AYTE. LAB',200,'ENG');
 insert into personal values('DAVINCI','AYTE. LAB',500,' ');
 
 /*TPersona CRUD-HIBERNATE*/
+
+create table TPersona
+(
+id int not null,
+dni char(8) not null,
+nombre varchar(30) not null,
+apellidoPaterno varchar(20) not null,
+apellidoMaterno varchar(20) not null,
+fechaNacimiento date not null,
+primary key(id)
+);
+
 CREATE SEQUENCE IncrIdPersona
   MINVALUE 1
   INCREMENT BY 1 
