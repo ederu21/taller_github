@@ -1,0 +1,86 @@
+import java.util.Scanner;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Principal {
+	public static void main(String args[]) {
+
+		// Parametros de la conexion
+		String usr = "dbuser";
+		String pwd = "Eder99030298i";
+		String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+		String url = "jdbc:hsqldb:hsql//localhost/xdb";
+		/*
+		 * static String servidor = "egonzalezt"; static String puerto = "1433";
+		 * static String user = "sa"; static String password = "Admin1207";
+		 * static String BaseDatos = "Escuela"; static String driver =
+		 * "com.microsoft.sqlserver.jdbc.SQLServerDriver"; static Connection con
+		 * = null; String url = "jdbc:sqlserver://" + servidor + ":" + puerto +
+		 * ";databaseName=" + BaseDatos + ";user=" + user + ";password=" +
+		 * password + ";"; System.out.println(url);
+		 */
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+
+		try {
+			// Se levanta el driver
+			Class.forName(driver);
+			// Se establece la conexion
+			con = DriverManager.getConnection(url, usr, pwd);
+
+			// Se define un Query
+			String sql = "Select * from tbusuario";
+
+			// Se prepara la sentencia a ejecutar
+			pstm = con.prepareStatement(sql);
+
+			// Se ejecuta la sentencia y se obtienen los resultados
+			rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				System.out.println(rs.getInt("empno"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstm != null)
+					pstm.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				throw new RuntimeException(e2);
+			}
+
+		}
+
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Por favor Ingrese su nombre edad y altura:");
+		String nombre = scanner.nextLine();
+		int edad = scanner.nextInt();
+		Double altura = scanner.nextDouble();
+		if (edad >= 21) {
+			System.out.println("Bienvenido " + nombre + " Edad: " + edad + " Altura: " + altura);
+			System.out.println("Usted es mayor de edad");
+		} else {
+			System.out.println("Usted es menor de edad");
+		}
+		metodo();
+	}
+
+	public static void metodo() {
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(i);
+		}
+	}
+}
